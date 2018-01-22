@@ -61,7 +61,7 @@ template [node['openvpn']['fs_prefix'], '/etc/openvpn/server.up.sh'].join do
   owner 'root'
   group node['openvpn']['root_group']
   mode  '0755'
-  notifies :restart, 'service[openvpn]'
+  notifies :restart, 'service[openvpn]' if node['openvpn']['manage_service']
 end
 
 directory [node['openvpn']['fs_prefix'], '/etc/openvpn/server.up.d'].join do
@@ -159,7 +159,7 @@ conf_name = if node['platform'] == 'freebsd'
             end
 
 openvpn_conf conf_name do
-  notifies :restart, 'service[openvpn]'
+  notifies :restart, 'service[openvpn]' if node['openvpn']['manage_service']
   only_if { node['openvpn']['configure_default_server'] }
   action :create
 end

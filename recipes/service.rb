@@ -59,7 +59,13 @@ else
   service_name = 'openvpn'
 end
 
+ovpn_svc_action = if node['openvpn']['manage_service']
+                    [:enable, :start]
+                  else
+                    :nothing
+                  end
+
 service 'openvpn' do
   service_name service_name
-  action [:enable, :start]
+  action ovpn_svc_action
 end

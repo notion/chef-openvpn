@@ -109,3 +109,5 @@ when 'server'
 when 'server-bridge'
   default['openvpn']['config']['dev'] = 'tap0'
 end
+
+default['openvpn']['manage_service'] = true
